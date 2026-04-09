@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTheme, seafoodThemes } from "./ThemeContext";
 
 export default function Navbar() {
   const { current, set } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [themeOpen, setThemeOpen] = useState(false);
+  const themeRef = useRef<HTMLDivElement>(null);
   const active = seafoodThemes.find(t => t.name === current);
 
   useEffect(() => {
@@ -18,6 +20,16 @@ export default function Navbar() {
   useEffect(() => {
     if (scrolled && menuOpen) setMenuOpen(false);
   }, [scrolled]);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (themeRef.current && !themeRef.current.contains(e.target as Node)) {
+        setThemeOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const links = [
     { href: "#hero",    label: "Beranda" },
@@ -78,24 +90,25 @@ export default function Navbar() {
           {/* Right side */}
           <div className="flex items-center gap-2 shrink-0">
 
-            {/* Theme switcher */}
-            <div className="dropdown dropdown-end">
-              <button tabIndex={0}
+            {/* Theme switcher - custom dropdown (no DaisyUI tabIndex bug) */}
+            <div className="relative" ref={themeRef}>
+              <button
+                onClick={() => setThemeOpen(!themeOpen)}
                 className={`btn btn-ghost btn-sm gap-1.5 rounded-xl border transition-colors px-2.5
                   ${scrolled ? "border-base-300 hover:border-primary" : "border-white/30 hover:border-white/60"}`}>
                 <span className="text-base leading-none">{active?.emoji}</span>
                 <span className="hidden lg:inline text-xs font-semibold">{active?.label}</span>
-                <svg className="w-3 h-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className={`w-3 h-3 opacity-50 transition-transform duration-200 ${themeOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7"/>
                 </svg>
               </button>
-              <ul tabIndex={0}
-                className="dropdown-content z-[999] mt-2 p-1.5 bg-base-100 border border-base-200
+              {themeOpen && (
+                <div className="absolute right-0 top-full mt-2 z-[999] p-1.5 bg-base-100 border border-base-200
                   rounded-2xl shadow-2xl shadow-black/20 w-44 flex flex-col gap-0.5">
-                {seafoodThemes.map(t => (
-                  <li key={t.name}>
+                  {seafoodThemes.map(t => (
                     <button
-                      onClick={() => set(t.name)}
+                      key={t.name}
+                      onClick={() => { set(t.name); setThemeOpen(false); }}
                       className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm
                         font-semibold transition-all duration-150 cursor-pointer
                         ${current === t.name
@@ -109,9 +122,9 @@ export default function Navbar() {
                         </svg>
                       )}
                     </button>
-                  </li>
-                ))}
-              </ul>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* WA button */}
