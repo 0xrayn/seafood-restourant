@@ -1,27 +1,27 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, memo } from "react";
 
 const FLOATERS = [
   { emoji:"🦞", x:"7%",  y:"22%", delay:"0s",   dur:"4.5s" },
   { emoji:"🦀", x:"86%", y:"18%", delay:"0.8s",  dur:"5.2s" },
   { emoji:"🦑", x:"78%", y:"64%", delay:"1.5s",  dur:"4.8s" },
   { emoji:"🐟", x:"10%", y:"68%", delay:"0.3s",  dur:"3.9s" },
-  { emoji:"🍤", x:"48%", y:"82%", delay:"1.2s",  dur:"5.5s" },
+  { emoji:"🍤", x:"48%", y:"88%", delay:"1.2s",  dur:"5.5s" },
   { emoji:"🦪", x:"38%", y:"8%",  delay:"2s",    dur:"4.2s" },
 ];
 
 const STATS = [
-  { val:"50+",  label:"Menu Pilihan",   emoji:"🍽️" },
-  { val:"10K+", label:"Pelanggan",      emoji:"👥" },
-  { val:"5.0",  label:"Rating",         emoji:"⭐" },
-  { val:"8Thn", label:"Pengalaman",     emoji:"🏆" },
+  { val:"50+",  label:"Menu Pilihan", emoji:"🍽️" },
+  { val:"10K+", label:"Pelanggan",    emoji:"👥" },
+  { val:"5.0",  label:"Rating",       emoji:"⭐" },
+  { val:"8Thn", label:"Pengalaman",   emoji:"🏆" },
 ];
 
-const waNumber = "6281234567890";
-const waMsg = encodeURIComponent("Halo Pesisir Seafood! Saya ingin memesan 🦞");
+const WA_NUMBER = "6281234567890";
+const WA_MSG = encodeURIComponent("Halo Pesisir Seafood! Saya ingin memesan 🦞");
 
-export default function Hero() {
+export default memo(function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
 
@@ -29,22 +29,28 @@ export default function Hero() {
     const el = heroRef.current;
     const bg = bgRef.current;
     if (!el || !bg) return;
+    let ticking = false;
     const onMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      const { width, height } = el.getBoundingClientRect();
-      const x = (clientX / width - 0.5) * 18;
-      const y = (clientY / height - 0.5) * 18;
-      bg.style.transform = `translate(${x}px, ${y}px) scale(1.08)`;
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const { clientX, clientY } = e;
+          const { width, height } = el.getBoundingClientRect();
+          const x = (clientX / width - 0.5) * 14;
+          const y = (clientY / height - 0.5) * 14;
+          bg.style.transform = `translate(${x}px, ${y}px) scale(1.08)`;
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    el.addEventListener("mousemove", onMove);
+    el.addEventListener("mousemove", onMove, { passive: true });
     return () => el.removeEventListener("mousemove", onMove);
   }, []);
 
   return (
-    /* pt-[calc(28px+64px)] = top bar 28px + navbar 64px */
     <section id="hero" ref={heroRef}
-      className="relative min-h-[100svh] flex items-center justify-center overflow-hidden"
-      style={{ paddingTop: "92px" }}>
+      className="relative min-h-[100svh] flex flex-col items-center justify-center overflow-hidden"
+      style={{ paddingTop: "92px", paddingBottom: "80px" }}>
 
       {/* Background */}
       <div ref={bgRef}
@@ -53,15 +59,16 @@ export default function Hero() {
           backgroundImage:`url('https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1800&q=80')`,
           backgroundSize:"cover",
           backgroundPosition:"center",
+          willChange:"transform",
         }} />
 
       {/* Overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/45 to-black/80" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/45 to-black/85" />
       <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/20" />
 
       {/* Animated orbs */}
-      <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-primary/15 rounded-full blur-[80px] animate-pulse" style={{animationDuration:"4s"}} />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary/10 rounded-full blur-[80px] animate-pulse" style={{animationDuration:"6s",animationDelay:"2s"}} />
+      <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-primary/15 rounded-full blur-[80px] animate-pulse pointer-events-none" style={{animationDuration:"4s"}} />
+      <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-secondary/10 rounded-full blur-[80px] animate-pulse pointer-events-none" style={{animationDuration:"6s",animationDelay:"2s"}} />
 
       {/* Floating emojis */}
       {FLOATERS.map((f, i) => (
@@ -73,10 +80,10 @@ export default function Hero() {
       ))}
 
       {/* Content */}
-      <div className="relative z-10 text-center px-4 sm:px-6 max-w-5xl mx-auto w-full py-12">
+      <div className="relative z-10 text-center px-4 sm:px-6 max-w-5xl mx-auto w-full flex flex-col items-center gap-6">
 
         {/* Headline */}
-        <h1 className="anim-fade-up delay-100 text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-white leading-[0.9] mb-5 tracking-tight">
+        <h1 className="anim-fade-up delay-100 text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-white leading-[0.9] tracking-tight">
           Pesisir
           <br />
           <span className="shimmer-text text-primary italic">Seafood</span>
@@ -84,21 +91,21 @@ export default function Hero() {
 
         {/* Subtext */}
         <p className="anim-fade-up delay-200 text-base sm:text-lg md:text-xl text-white/70
-          max-w-lg mx-auto leading-relaxed mb-10 font-light">
+          max-w-lg leading-relaxed font-light">
           Cita rasa laut terbaik langsung dari nelayan Probolinggo.
           <br className="hidden sm:block" />
           Segar setiap hari, bumbu rempah Nusantara yang tak terlupakan.
         </p>
 
         {/* CTA Buttons */}
-        <div className="anim-fade-up delay-300 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-16">
+        <div className="anim-fade-up delay-300 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
           <a href="#menu"
             className="btn btn-primary btn-lg rounded-2xl font-bold shadow-2xl shadow-primary/40
               hover:scale-105 hover:shadow-primary/50 transition-all duration-300">
             🍽️ Lihat Menu Lengkap
           </a>
           <a
-            href={`https://wa.me/${waNumber}?text=${waMsg}`}
+            href={`https://wa.me/${WA_NUMBER}?text=${WA_MSG}`}
             target="_blank" rel="noopener noreferrer"
             className="btn btn-lg rounded-2xl font-bold text-white border-white/20
               bg-[#25D366]/80 hover:bg-[#25D366] hover:scale-105
@@ -110,25 +117,25 @@ export default function Hero() {
           </a>
         </div>
 
-        {/* Stats — proper spacing, bigger, clear layout */}
-        <div className="anim-scale-in delay-400 max-w-2xl mx-auto">
+        {/* Stats — clear layout, no overlap */}
+        <div className="anim-scale-in delay-400 w-full max-w-2xl mt-2">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {STATS.map((s, i) => (
               <div key={i}
-                className="flex flex-col items-center py-5 px-4 rounded-2xl
+                className="flex flex-col items-center py-5 px-3 rounded-2xl
                   bg-white/10 backdrop-blur-md border border-white/15
                   hover:bg-white/15 transition-colors duration-300">
-                <span className="text-2xl mb-2">{s.emoji}</span>
+                <span className="text-2xl mb-2 leading-none">{s.emoji}</span>
                 <span className="text-2xl sm:text-3xl font-black text-white leading-none">{s.val}</span>
-                <span className="text-white/55 text-xs mt-1.5 font-medium text-center">{s.label}</span>
+                <span className="text-white/55 text-xs mt-1.5 font-medium text-center leading-tight">{s.label}</span>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+      {/* Scroll indicator — pinned to bottom, clear of stats */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10">
         <span className="text-white/30 text-xs tracking-[0.2em] uppercase font-medium">Scroll</span>
         <div className="w-5 h-9 rounded-full border border-white/20 flex items-start justify-center p-1.5">
           <div className="w-1 h-2 rounded-full bg-white/50 animate-bounce" />
@@ -136,4 +143,4 @@ export default function Hero() {
       </div>
     </section>
   );
-}
+});

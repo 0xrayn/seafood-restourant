@@ -25,13 +25,9 @@ export const menuItems: MenuItem[] = [
 
 export const categories = ["Semua","Kepiting","Udang","Cumi","Ikan","Kerang","Lobster","Nasi","Minuman"];
 
-export type ThemeOption = { name:string; label:string; emoji:string; accent:string; };
+export type ThemeOption = { name: string; label: string; emoji: string };
 
 export const seafoodThemes: ThemeOption[] = [
-  { name:"ocean",    label:"Samudra",  emoji:"🌊", accent:"#38bdf8" },
-  { name:"luxury",    label:"Mewah",    emoji:"✨", accent:"#f5c842" },
-  { name:"coral",     label:"Karang",   emoji:"🪸", accent:"#ff6b6b" },
-  { name:"forest",    label:"Mangrove", emoji:"🌿", accent:"#4ade80" },
-  { name:"midnight",  label:"Tengah Malam", emoji:"🌙", accent:"#a78bfa" },
-  { name:"sunrise",   label:"Fajar",    emoji:"🌅", accent:"#fb923c" },
+  { name: "dark",  label: "Gelap",  emoji: "🌙" },
+  { name: "light", label: "Terang", emoji: "☀️" },
 ];
