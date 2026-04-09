@@ -1,21 +1,43 @@
 const FEATURES = [
   { emoji:"🎣", title:"Langsung dari Nelayan",  desc:"Pasokan harian dari pelabuhan Mayangan. Tidak ada yang lebih segar dari ini." },
-  { emoji:"🌶️", title:"Bumbu Rempah Asli",       desc:"Semua bumbu diracik dari rempah pilihan, tanpa MSG dan pengawet." },
+  { emoji:"🌶️", title:"Bumbu Rempah Asli",      desc:"Semua bumbu diracik dari rempah pilihan, tanpa MSG dan pengawet." },
   { emoji:"👨‍🍳", title:"Chef Berpengalaman",    desc:"Tim chef dengan pengalaman 10+ tahun mengolah masakan seafood Nusantara." },
   { emoji:"🚚", title:"Dine-in & Delivery",      desc:"Layanan dine-in, take away, dan delivery di area Probolinggo." },
 ];
 
 const REVIEWS = [
-  { name:"Budi Santoso",  role:"Pelanggan Setia", stars:5, text:"Kepiting saus padangnya juara! Sudah 3 tahun jadi langganan. Segar dan bumbunya meresap sempurna." },
-  { name:"Siti Rahayu",   role:"Food Blogger",    stars:5, text:"Seafood terenak di Probolinggo. Tempatnya bersih, pelayanan ramah, harga sangat worth it!" },
-  { name:"Ahmad Fauzi",   role:"Pelanggan",       stars:5, text:"Lobster bakarnya luar biasa! Cocok untuk momen spesial keluarga. Pasti akan kembali lagi." },
+  {
+    name:"Budi Santoso",
+    role:"Pelanggan Setia · 3 Tahun",
+    stars:5,
+    text:"Kepiting saus padangnya juara! Sudah 3 tahun jadi langganan. Segar dan bumbunya meresap sempurna.",
+    highlight:"Kepiting Saus Padang",
+    avatar:"B",
+    color:"from-orange-400 to-amber-500",
+  },
+  {
+    name:"Siti Rahayu",
+    role:"Food Blogger",
+    stars:5,
+    text:"Seafood terenak di Probolinggo. Tempatnya bersih, pelayanan ramah, harga sangat worth it!",
+    highlight:"Worth It!",
+    avatar:"S",
+    color:"from-rose-400 to-pink-500",
+  },
+  {
+    name:"Ahmad Fauzi",
+    role:"Pelanggan",
+    stars:5,
+    text:"Lobster bakarnya luar biasa! Cocok untuk momen spesial keluarga. Pasti akan kembali lagi.",
+    highlight:"Lobster Bakar",
+    avatar:"A",
+    color:"from-sky-400 to-blue-500",
+  },
 ];
 
 export default function About() {
   return (
     <section id="about" className="py-24 bg-base-100 overflow-hidden relative">
-
-      {/* Decorative circles */}
       <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-primary/5 blur-[80px] pointer-events-none" />
       <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full bg-secondary/5 blur-[60px] pointer-events-none" />
 
@@ -23,8 +45,6 @@ export default function About() {
 
         {/* Main grid */}
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-28">
-
-          {/* Left */}
           <div className="anim-slide-r">
             <span className="inline-block text-primary font-bold tracking-[0.25em] uppercase text-xs sm:text-sm
               mb-5 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20">
@@ -43,12 +63,10 @@ export default function About() {
               Setiap hari kami menerima pasokan ikan, udang, cumi, dan kepiting segar
               langsung dari pelabuhan Mayangan — tidak ada yang lebih segar dari ini!
             </p>
-
-            {/* Achievement bar */}
             <div className="grid grid-cols-3 gap-4 mb-10">
               {[
-                { val:"8+", label:"Tahun Berdiri" },
-                { val:"50+", label:"Menu Pilihan" },
+                { val:"8+",   label:"Tahun Berdiri" },
+                { val:"50+",  label:"Menu Pilihan" },
                 { val:"10K+", label:"Pelanggan Puas" },
               ].map(a => (
                 <div key={a.label}
@@ -58,7 +76,6 @@ export default function About() {
                 </div>
               ))}
             </div>
-
             <div className="flex flex-wrap gap-3">
               <a href="#menu" className="btn btn-primary rounded-xl font-bold hover:scale-105 transition-transform shadow-lg shadow-primary/20">
                 Lihat Menu
@@ -69,12 +86,11 @@ export default function About() {
             </div>
           </div>
 
-          {/* Right — Feature cards */}
           <div className="grid grid-cols-2 gap-4">
             {FEATURES.map((f, i) => (
               <div key={f.title}
-                className={`card-hover anim-fade-up bg-base-200 rounded-2xl p-5 sm:p-6
-                  border border-base-300 hover:border-primary/50 transition-colors group`}
+                className="card-hover anim-fade-up bg-base-200 rounded-2xl p-5 sm:p-6
+                  border border-base-300 hover:border-primary/50 transition-colors group"
                 style={{ animationDelay:`${i * 0.1}s` }}>
                 <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300 inline-block">
                   {f.emoji}
@@ -86,44 +102,159 @@ export default function About() {
           </div>
         </div>
 
-        {/* Testimonials */}
+        {/* ── TESTIMONIALS — redesigned ── */}
         <div>
-          <div className="text-center mb-12">
+          <div className="text-center mb-14">
             <span className="inline-block text-primary font-bold tracking-[0.25em] uppercase text-xs sm:text-sm
               mb-4 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20">
-              Testimoni
+              Testimoni Pelanggan
             </span>
-            <h3 className="text-3xl sm:text-4xl font-black text-base-content">
-              Kata <span className="text-primary italic">Pelanggan Kami</span>
+            <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-base-content">
+              Yang Mereka <span className="text-primary italic">Katakan</span>
             </h3>
+            <p className="text-base-content/45 mt-3 text-sm max-w-md mx-auto">
+              Ribuan pelanggan sudah membuktikan — rasanya berbicara sendiri
+            </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6">
-            {REVIEWS.map((r, i) => (
-              <div key={r.name}
-                className={`card-hover anim-fade-up bg-base-200 rounded-2xl p-6 border border-base-300
-                  hover:border-primary/30 transition-colors`}
-                style={{ animationDelay:`${i * 0.15}s` }}>
-                <div className="flex gap-1 mb-4">
-                  {Array.from({length: r.stars}).map((_,j) => (
-                    <span key={j} className="text-amber-400 text-lg">★</span>
-                  ))}
-                </div>
-                <p className="text-base-content/65 text-sm sm:text-base italic leading-relaxed mb-6">
-                  &ldquo;{r.text}&rdquo;
-                </p>
-                <div className="flex items-center gap-3 mt-auto">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary/50
-                    flex items-center justify-center shadow-md">
-                    <span className="font-black text-primary-content text-sm">{r.name[0]}</span>
-                  </div>
-                  <div>
-                    <div className="font-bold text-base-content text-sm">{r.name}</div>
-                    <div className="text-base-content/40 text-xs">{r.role}</div>
-                  </div>
-                </div>
+          {/* Big featured review + 2 side cards */}
+          <div className="grid lg:grid-cols-5 gap-5">
+
+            {/* Featured — spans 3 cols */}
+            <div className="lg:col-span-3 anim-slide-r relative overflow-hidden
+              bg-gradient-to-br from-base-200 to-base-300
+              rounded-3xl border border-base-300 p-7 sm:p-10
+              flex flex-col justify-between min-h-[280px]">
+
+              {/* Big quote mark */}
+              <div className="absolute top-4 right-6 text-[120px] font-black leading-none
+                text-base-content/5 select-none pointer-events-none">"</div>
+
+              {/* Stars */}
+              <div className="flex gap-1 mb-5">
+                {Array.from({length:5}).map((_,j) => (
+                  <span key={j} className="text-amber-400 text-xl">★</span>
+                ))}
+                <span className="ml-2 text-xs font-bold text-amber-500 bg-amber-400/10
+                  px-2 py-1 rounded-full border border-amber-400/20 self-center">
+                  Verified ✓
+                </span>
               </div>
-            ))}
+
+              {/* Highlighted keyword */}
+              <div className="mb-4">
+                <span className="text-xs font-black uppercase tracking-widest text-primary bg-primary/10
+                  px-3 py-1.5 rounded-full border border-primary/20">
+                  ❤️ {REVIEWS[0].highlight}
+                </span>
+              </div>
+
+              {/* Quote */}
+              <p className="text-base-content/80 text-lg sm:text-xl font-medium leading-relaxed mb-8 italic">
+                &ldquo;{REVIEWS[0].text}&rdquo;
+              </p>
+
+              {/* Author */}
+              <div className="flex items-center gap-4">
+                <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${REVIEWS[0].color}
+                  flex items-center justify-center shadow-lg`}>
+                  <span className="font-black text-white text-lg">{REVIEWS[0].avatar}</span>
+                </div>
+                <div>
+                  <div className="font-black text-base-content text-base">{REVIEWS[0].name}</div>
+                  <div className="text-base-content/45 text-xs font-medium">{REVIEWS[0].role}</div>
+                </div>
+                {/* Google logo placeholder */}
+                <div className="ml-auto text-xs font-bold text-base-content/25">Google Maps</div>
+              </div>
+            </div>
+
+            {/* 2 stacked side cards */}
+            <div className="lg:col-span-2 flex flex-col gap-5">
+              {REVIEWS.slice(1).map((r, i) => (
+                <div key={r.name}
+                  className="anim-fade-up flex-1 relative overflow-hidden
+                    bg-base-200 rounded-3xl border border-base-300 p-6
+                    hover:border-primary/40 transition-colors group"
+                  style={{ animationDelay:`${(i+1)*0.15}s` }}>
+
+                  {/* Accent bar */}
+                  <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${r.color} rounded-t-3xl`} />
+
+                  <div className="flex gap-0.5 mb-3 mt-1">
+                    {Array.from({length:r.stars}).map((_,j) => (
+                      <span key={j} className="text-amber-400 text-base">★</span>
+                    ))}
+                  </div>
+
+                  <div className="mb-3">
+                    <span className="text-xs font-bold text-primary bg-primary/10
+                      px-2.5 py-1 rounded-full border border-primary/15">
+                      {r.highlight}
+                    </span>
+                  </div>
+
+                  <p className="text-base-content/70 text-sm leading-relaxed mb-5 italic">
+                    &ldquo;{r.text}&rdquo;
+                  </p>
+
+                  <div className="flex items-center gap-3">
+                    <div className={`w-9 h-9 rounded-xl bg-gradient-to-br ${r.color}
+                      flex items-center justify-center shadow-md`}>
+                      <span className="font-black text-white text-sm">{r.avatar}</span>
+                    </div>
+                    <div>
+                      <div className="font-bold text-base-content text-sm">{r.name}</div>
+                      <div className="text-base-content/40 text-xs">{r.role}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Rating summary bar */}
+          <div className="mt-8 bg-base-200 rounded-2xl border border-base-300 p-5 sm:p-6
+            flex flex-col sm:flex-row items-center gap-6">
+            <div className="text-center shrink-0">
+              <div className="text-5xl font-black text-base-content">5.0</div>
+              <div className="flex gap-0.5 justify-center my-1.5">
+                {Array.from({length:5}).map((_,j) => (
+                  <span key={j} className="text-amber-400 text-lg">★</span>
+                ))}
+              </div>
+              <div className="text-xs text-base-content/40 font-medium">dari 10.000+ ulasan</div>
+            </div>
+            <div className="hidden sm:block w-px h-16 bg-base-300" />
+            <div className="flex-1 space-y-2 w-full">
+              {[5,4,3,2,1].map((star, i) => {
+                const widths = ["95%","4%","1%","0%","0%"];
+                return (
+                  <div key={star} className="flex items-center gap-3">
+                    <span className="text-xs font-bold text-base-content/50 w-3 shrink-0">{star}</span>
+                    <span className="text-amber-400 text-xs">★</span>
+                    <div className="flex-1 h-2 bg-base-300 rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-amber-400 rounded-full transition-all duration-1000"
+                        style={{ width: widths[i] }}
+                      />
+                    </div>
+                    <span className="text-xs text-base-content/40 w-8 text-right shrink-0">{widths[i]}</span>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="hidden sm:block w-px h-16 bg-base-300" />
+            <div className="text-center shrink-0">
+              <div className="text-2xl font-black text-primary mb-1">10K+</div>
+              <div className="text-xs text-base-content/40 font-medium">Pelanggan Puas</div>
+              <div className="mt-3">
+                <a href="#contact"
+                  className="btn btn-primary btn-sm rounded-xl font-bold text-xs">
+                  Bergabung →
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -11,9 +11,14 @@ const INFO = [
 
 const waNumber = "6281234567890";
 
+const WA_ICON = (
+  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current flex-shrink-0">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+);
+
 export default function Contact() {
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
   const [service, setService] = useState("Reservasi Meja");
   const [message, setMessage] = useState("");
 
@@ -24,16 +29,9 @@ export default function Contact() {
     window.open(`https://wa.me/${waNumber}?text=${msg}`, "_blank");
   };
 
-  const handleWaReservation = () => {
-    const msg = encodeURIComponent("Halo Pesisir Seafood! Saya ingin reservasi meja 🦞");
-    window.open(`https://wa.me/${waNumber}?text=${msg}`, "_blank");
-  };
-
   return (
     <>
       <section id="contact" className="py-24 bg-base-200 relative overflow-hidden">
-
-        {/* Background decoration */}
         <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[80px] pointer-events-none" />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
@@ -53,28 +51,25 @@ export default function Contact() {
 
           {/* WA CTA Banner */}
           <div className="anim-fade-up delay-100 mb-8 bg-[#25D366] rounded-2xl p-5 sm:p-6
-            flex flex-col sm:flex-row items-center justify-between gap-4
-            shadow-xl shadow-[#25D366]/20">
+            flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl shadow-[#25D366]/20">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center shrink-0">
-                <svg viewBox="0 0 24 24" className="w-7 h-7 fill-white">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                </svg>
+                {WA_ICON}
               </div>
               <div>
                 <div className="font-black text-white text-lg">Chat via WhatsApp</div>
                 <div className="text-white/80 text-sm">Respon cepat dalam hitungan menit!</div>
               </div>
             </div>
-            <button onClick={handleWaReservation}
+            <a href={`https://wa.me/${waNumber}?text=${encodeURIComponent("Halo Pesisir Seafood! Saya ingin reservasi meja 🦞")}`}
+              target="_blank" rel="noopener noreferrer"
               className="btn bg-white text-[#25D366] hover:bg-white/90 border-0 rounded-xl font-black
                 shadow-lg hover:scale-105 transition-all shrink-0">
               Mulai Chat →
-            </button>
+            </a>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
-
             {/* Info */}
             <div className="anim-slide-r space-y-5">
               <div className="bg-base-100 rounded-2xl border border-base-300 p-5 sm:p-6 space-y-5">
@@ -91,25 +86,21 @@ export default function Contact() {
                   </div>
                 ))}
               </div>
-
-              {/* Map */}
               <div className="bg-base-100 rounded-2xl border border-base-300 h-48 overflow-hidden relative
-                flex items-center justify-center group cursor-pointer hover:border-primary/50 transition-colors">
+                flex items-center justify-center hover:border-primary/50 transition-colors">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5" />
                 <div className="text-center relative z-10">
-                  <div className="text-5xl mb-2 group-hover:scale-110 transition-transform">🗺️</div>
+                  <div className="text-5xl mb-2">🗺️</div>
                   <p className="text-sm font-semibold text-base-content/60">Jl. Mayangan No. 45</p>
                   <p className="text-xs text-base-content/40">Probolinggo, Jawa Timur</p>
                 </div>
               </div>
-
-              {/* Socials */}
               <div className="grid grid-cols-4 gap-2">
                 {[
-                  { emoji:"📸", label:"Instagram",  href:"#" },
-                  { emoji:"💬", label:"WhatsApp",   href:`https://wa.me/${waNumber}` },
-                  { emoji:"👍", label:"Facebook",   href:"#" },
-                  { emoji:"🎵", label:"TikTok",     href:"#" },
+                  { emoji:"📸", label:"Instagram", href:"#" },
+                  { emoji:"💬", label:"WhatsApp",  href:`https://wa.me/${waNumber}` },
+                  { emoji:"👍", label:"Facebook",  href:"#" },
+                  { emoji:"🎵", label:"TikTok",    href:"#" },
                 ].map(s => (
                   <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
                     className="flex flex-col items-center gap-1.5 py-3 rounded-xl border border-base-300 bg-base-100
@@ -132,12 +123,6 @@ export default function Contact() {
                     className="input input-bordered w-full rounded-xl focus:border-primary transition-colors text-sm" />
                 </div>
                 <div>
-                  <label className="text-sm font-bold text-base-content/60 block mb-1.5">Nomor WhatsApp</label>
-                  <input type="tel" placeholder="08xx-xxxx-xxxx" value={phone}
-                    onChange={e => setPhone(e.target.value)}
-                    className="input input-bordered w-full rounded-xl focus:border-primary transition-colors text-sm" />
-                </div>
-                <div>
                   <label className="text-sm font-bold text-base-content/60 block mb-1.5">Jenis Layanan</label>
                   <select value={service} onChange={e => setService(e.target.value)}
                     className="select select-bordered w-full rounded-xl focus:border-primary transition-colors text-sm">
@@ -151,15 +136,13 @@ export default function Contact() {
                   <label className="text-sm font-bold text-base-content/60 block mb-1.5">Pesan</label>
                   <textarea placeholder="Tulis pesan atau permintaan spesial Anda..." value={message}
                     onChange={e => setMessage(e.target.value)}
-                    className="textarea textarea-bordered w-full rounded-xl resize-none h-28 focus:border-primary transition-colors text-sm" />
+                    className="textarea textarea-bordered w-full rounded-xl resize-none h-32 focus:border-primary transition-colors text-sm" />
                 </div>
                 <button onClick={handleSend}
                   className="btn bg-[#25D366] hover:bg-[#22c35e] text-white border-0 w-full rounded-xl
-                    font-black shadow-lg shadow-[#25D366]/25 hover:scale-[1.02] hover:shadow-[#25D366]/40
+                    font-black shadow-lg shadow-[#25D366]/25 hover:scale-[1.02]
                     transition-all duration-300 gap-2">
-                  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                  </svg>
+                  {WA_ICON}
                   Kirim via WhatsApp
                 </button>
               </div>
@@ -168,53 +151,140 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-base-300 border-t border-base-content/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-3">
-              <span className="text-3xl">🦞</span>
-              <div>
-                <div className="font-black text-lg text-base-content">
-                  <span className="text-primary">Pesisir</span> Seafood
+      {/* ── FOOTER — redesigned ── */}
+      <footer className="relative bg-base-300 border-t border-base-content/10 overflow-hidden">
+
+        {/* Decorative top gradient line */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+
+          {/* Main footer content */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 py-14">
+
+            {/* Brand column */}
+            <div className="lg:col-span-2">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-4xl">🦞</span>
+                <div>
+                  <div className="font-black text-2xl text-base-content leading-none">
+                    <span className="text-primary">Pesisir</span> Seafood
+                  </div>
+                  <div className="text-base-content/40 text-xs mt-0.5">Est. 2016 · Probolinggo</div>
                 </div>
-                <div className="text-base-content/40 text-xs">Probolinggo, Jawa Timur · Est. 2016</div>
+              </div>
+              <p className="text-base-content/50 text-sm leading-relaxed mb-5 max-w-xs">
+                Restoran seafood segar dengan cita rasa Nusantara terbaik, langsung dari nelayan Mayangan setiap hari.
+              </p>
+              {/* Social icons */}
+              <div className="flex gap-2">
+                {[
+                  { emoji:"📸", href:"#", label:"Instagram" },
+                  { emoji:"💬", href:`https://wa.me/${waNumber}`, label:"WhatsApp" },
+                  { emoji:"👍", href:"#", label:"Facebook" },
+                  { emoji:"🎵", href:"#", label:"TikTok" },
+                ].map(s => (
+                  <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
+                    aria-label={s.label}
+                    className="w-10 h-10 rounded-xl border border-base-content/15 flex items-center justify-center
+                      hover:border-primary hover:bg-primary/10 transition-all text-lg">
+                    {s.emoji}
+                  </a>
+                ))}
               </div>
             </div>
-            <nav className="flex flex-wrap gap-x-6 gap-y-2 justify-center">
-              {["Beranda","Menu","Tentang","Kontak"].map((l,i) => (
-                <a key={l} href={`#${["hero","menu","about","contact"][i]}`}
-                  className="text-base-content/45 hover:text-primary text-sm font-medium transition-colors">
-                  {l}
-                </a>
-              ))}
-            </nav>
-            <p className="text-base-content/35 text-xs text-center">
-              © {new Date().getFullYear()} Pesisir Seafood. All rights reserved.
-            </p>
+
+            {/* Navigation */}
+            <div>
+              <h4 className="font-black text-base-content text-sm tracking-widest uppercase mb-5">Navigasi</h4>
+              <ul className="space-y-3">
+                {[
+                  { label:"Beranda",  href:"#hero" },
+                  { label:"Menu",     href:"#menu" },
+                  { label:"Tentang",  href:"#about" },
+                  { label:"Kontak",   href:"#contact" },
+                ].map(l => (
+                  <li key={l.label}>
+                    <a href={l.href}
+                      className="text-base-content/50 hover:text-primary text-sm font-medium
+                        transition-colors flex items-center gap-2 group">
+                      <span className="w-1 h-1 rounded-full bg-primary/40 group-hover:bg-primary transition-colors" />
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Contact info */}
+            <div>
+              <h4 className="font-black text-base-content text-sm tracking-widest uppercase mb-5">Informasi</h4>
+              <ul className="space-y-3 text-sm text-base-content/50">
+                <li className="flex items-start gap-2">
+                  <span className="shrink-0 mt-0.5">📍</span>
+                  <span>Jl. Mayangan No.45, Probolinggo</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span>🕐</span>
+                  <span>10.00 – 22.00 WIB</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span>📞</span>
+                  <span>+62 812-3456-7890</span>
+                </li>
+              </ul>
+              <a
+                href={`https://wa.me/${waNumber}?text=${encodeURIComponent("Halo Pesisir Seafood! 🦞")}`}
+                target="_blank" rel="noopener noreferrer"
+                className="mt-5 btn bg-[#25D366] text-white border-0 btn-sm rounded-xl font-bold gap-1.5
+                  hover:bg-[#22c35e] hover:scale-105 transition-all shadow-md shadow-[#25D366]/20">
+                {WA_ICON}
+                Chat Sekarang
+              </a>
+            </div>
+          </div>
+
+          {/* Footer bottom bar */}
+          <div className="border-t border-base-content/10 py-5 flex flex-col sm:flex-row
+            items-center justify-between gap-3 text-xs text-base-content/35">
+            <p>© {new Date().getFullYear()} Pesisir Seafood. All rights reserved.</p>
+            <a
+              href="https://rayn.web.id"
+              target="_blank" rel="noopener noreferrer"
+              className="flex items-center gap-1.5 hover:text-primary transition-colors font-medium group">
+              Built by
+              <span className="font-black text-base-content/50 group-hover:text-primary transition-colors">rayn</span>
+              <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </a>
           </div>
         </div>
       </footer>
 
-      {/* Floating WA button */}
-      <a href={`https://wa.me/${waNumber}?text=${encodeURIComponent("Halo Pesisir Seafood! 🦞")}`}
+      {/* ── FLOATING WA BUTTON — fixed position, z-[9999] ── */}
+      <a
+        href={`https://wa.me/${waNumber}?text=${encodeURIComponent("Halo Pesisir Seafood! 🦞")}`}
         target="_blank" rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full
-          bg-[#25D366] shadow-2xl shadow-[#25D366]/40
+        aria-label="Chat via WhatsApp"
+        style={{ position: "fixed", bottom: "24px", right: "24px", zIndex: 9999 }}
+        className="w-14 h-14 rounded-full bg-[#25D366] shadow-2xl shadow-[#25D366]/40
           flex items-center justify-center
-          hover:scale-110 hover:shadow-[#25D366]/60
-          transition-all duration-300 group relative"
-        aria-label="Chat via WhatsApp">
-        {/* Pulse ring */}
-        <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-30" />
-        <svg viewBox="0 0 24 24" className="w-7 h-7 fill-white relative z-10
-          group-hover:scale-110 transition-transform">
+          hover:scale-110 transition-all duration-300 group">
+        {/* Ping ring */}
+        <span
+          style={{ position: "absolute", inset: 0, borderRadius: "9999px" }}
+          className="bg-[#25D366] animate-ping opacity-30"
+        />
+        <svg viewBox="0 0 24 24" className="w-7 h-7 fill-white relative z-10">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
         </svg>
         {/* Tooltip */}
-        <span className="absolute right-16 bg-base-100 text-base-content text-xs font-bold
-          px-3 py-1.5 rounded-xl shadow-xl whitespace-nowrap pointer-events-none
-          opacity-0 group-hover:opacity-100 transition-opacity duration-200 border border-base-200">
+        <span
+          className="absolute right-16 bg-base-100 text-base-content text-xs font-bold
+            px-3 py-1.5 rounded-xl shadow-xl whitespace-nowrap border border-base-200
+            opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
+        >
           Chat WA
         </span>
       </a>
