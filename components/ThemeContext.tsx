@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { seafoodThemes } from "@/data/menu";
+import { seafoodThemes } from "../data/menu";
 
 type ThemeContextType = {
   currentTheme: string;

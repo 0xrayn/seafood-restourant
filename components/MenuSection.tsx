@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { menuItems, categories, MenuItem } from "@/data/menu";
+import { menuItems, categories, MenuItem } from "../data/menu";
 
 function MenuCard({ item }: { item: MenuItem }) {
   const [added, setAdded] = useState(false);

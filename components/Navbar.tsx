@@ -1,7 +1,7 @@
 "use client";
 
 import { useTheme } from "./ThemeContext";
-import { seafoodThemes } from "@/data/menu";
+import { seafoodThemes } from "../data/menu";
 
 export default function Navbar() {
   const { currentTheme, setTheme } = useTheme();
