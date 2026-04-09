@@ -33,7 +33,7 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
       <div className="relative h-40 flex items-center justify-center
         bg-gradient-to-br from-base-200 via-base-200 to-base-300 overflow-hidden">
         <div className="absolute inset-0 opacity-10"
-          style={{background:"radial-gradient(circle at 50% 120%, oklch(0.7 0.2 60), transparent 70%)"}} />
+          style={{background:"radial-gradient(circle at 50% 120%, hsl(40 70% 55% / 0.5), transparent 70%)"}} />
         <span className="text-[72px] group-hover:scale-110 group-hover:rotate-6
           transition-transform duration-500 select-none filter drop-shadow-xl">
           {item.emoji}

@@ -1,7 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 @plugin "daisyui";
-
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
@@ -12,14 +11,12 @@
 @layer utilities {
   @keyframes fadeUp   { from{opacity:0;transform:translateY(50px)} to{opacity:1;transform:translateY(0)} }
   @keyframes fadeIn   { from{opacity:0} to{opacity:1} }
-  @keyframes floatY   { 0%,100%{transform:translateY(0)rotate(0deg)} 50%{transform:translateY(-16px)rotate(5deg)} }
+  @keyframes floatY   { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-16px) rotate(5deg)} }
   @keyframes shimmer  { 0%{background-position:-300% center} 100%{background-position:300% center} }
   @keyframes scaleIn  { from{opacity:0;transform:scale(0.88)} to{opacity:1;transform:scale(1)} }
   @keyframes slideR   { from{opacity:0;transform:translateX(-40px)} to{opacity:1;transform:translateX(0)} }
   @keyframes slideL   { from{opacity:0;transform:translateX(40px)} to{opacity:1;transform:translateX(0)} }
   @keyframes pulseRing{ 0%{transform:scale(1);opacity:.7} 100%{transform:scale(1.6);opacity:0} }
-  @keyframes ticker   { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-  @keyframes spin     { to{transform:rotate(360deg)} }
 
   .anim-fade-up  { animation: fadeUp  .75s cubic-bezier(.22,1,.36,1) both; }
   .anim-fade-in  { animation: fadeIn  1s ease both; }
@@ -27,19 +24,20 @@
   .anim-slide-r  { animation: slideR  .75s cubic-bezier(.22,1,.36,1) both; }
   .anim-slide-l  { animation: slideL  .75s cubic-bezier(.22,1,.36,1) both; }
 
-  .delay-100 { animation-delay:.1s }
-  .delay-200 { animation-delay:.2s }
-  .delay-300 { animation-delay:.3s }
-  .delay-400 { animation-delay:.4s }
-  .delay-500 { animation-delay:.5s }
-  .delay-600 { animation-delay:.6s }
-  .delay-700 { animation-delay:.7s }
-  .delay-800 { animation-delay:.8s }
+  .delay-100 { animation-delay: .1s }
+  .delay-200 { animation-delay: .2s }
+  .delay-300 { animation-delay: .3s }
+  .delay-400 { animation-delay: .4s }
+  .delay-500 { animation-delay: .5s }
+  .delay-600 { animation-delay: .6s }
+  .delay-700 { animation-delay: .7s }
+  .delay-800 { animation-delay: .8s }
 
   .float-emoji { animation: floatY ease-in-out infinite; }
 
+  /* oklch diganti hsl agar kompatibel dengan lightningcss alpha */
   .shimmer-text {
-    background: linear-gradient(105deg, currentColor 30%, oklch(.9 .2 75) 50%, currentColor 70%);
+    background: linear-gradient(105deg, currentColor 30%, hsl(45 85% 65%) 50%, currentColor 70%);
     background-size: 300% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -52,22 +50,11 @@
   }
   .card-hover:hover {
     transform: translateY(-8px) scale(1.015);
-    box-shadow: 0 24px 50px -12px oklch(0 0 0 / .3);
+    box-shadow: 0 24px 50px -12px rgba(0,0,0,0.3);
   }
 
   .nav-glass {
     backdrop-filter: blur(20px) saturate(160%);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
   }
-
-  .wa-pulse::before {
-    content:'';
-    position:absolute;
-    inset:-5px;
-    border-radius:50%;
-    background:#25D366;
-    animation: pulseRing 2s ease-out infinite;
-  }
-
-  .ticker-inner { animation: ticker 24s linear infinite; white-space: nowrap; }
 }
