@@ -8,6 +8,12 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
       },
     ],
+    // Allow local uploaded images from /public/uploads
+    localPatterns: [
+      {
+        pathname: "/uploads/**",
+      },
+    ],
   },
 };
 

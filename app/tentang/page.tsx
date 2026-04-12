@@ -1,6 +1,6 @@
 import Navbar from "../../components/Navbar";
 import About from "../../components/About";
-import Contact from "../../components/Contact";
+import Footer from "../../components/Footer";
 
 export const metadata = { title: "Tentang Kami — Pesisir Seafood" };
 
@@ -10,8 +10,8 @@ export default function TentangPage() {
       <Navbar />
       <main className="pt-20">
         <About />
-        <Contact />
       </main>
+      <Footer />
     </>
   );
 }

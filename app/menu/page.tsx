@@ -1,6 +1,6 @@
 import Navbar from "../../components/Navbar";
 import MenuSection from "../../components/MenuSection";
-import Contact from "../../components/Contact";
+import Footer from "../../components/Footer";
 
 export const metadata = { title: "Menu — Pesisir Seafood" };
 
@@ -10,8 +10,8 @@ export default function MenuPage() {
       <Navbar />
       <main>
         <MenuSection standalone />
-        <Contact />
       </main>
+      <Footer />
     </>
   );
 }
