@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { menuItems, categories, MenuItem } from "../data/menu";
 
 const BADGE_STYLE: Record<string, string> = {
@@ -15,6 +16,7 @@ const waNumber = "6281234567890";
 
 function MenuCard({ item, index }: { item: MenuItem; index: number }) {
   const [ordered, setOrdered] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
   const handleOrder = () => {
     const msg = encodeURIComponent(`Halo! Saya ingin memesan *${item.name}* (Rp ${item.price.toLocaleString("id-ID")}) 🦞`);
@@ -29,18 +31,32 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
         border border-base-200 group flex flex-col"
       style={{ animationDelay: `${index * 0.055}s` }}>
 
-      {/* Emoji area */}
-      <div className="relative h-40 flex items-center justify-center
-        bg-gradient-to-br from-base-200 via-base-200 to-base-300 overflow-hidden">
-        <div className="absolute inset-0 opacity-10"
-          style={{background:"radial-gradient(circle at 50% 120%, hsl(40 70% 55% / 0.5), transparent 70%)"}} />
-        <span className="text-[72px] group-hover:scale-110 group-hover:rotate-6
-          transition-transform duration-500 select-none filter drop-shadow-xl">
-          {item.emoji}
-        </span>
-        <svg className="absolute bottom-0 left-0 w-full text-base-100" viewBox="0 0 400 24" fill="currentColor">
-          <path d="M0,16 Q100,0 200,12 Q300,24 400,8 L400,24 L0,24 Z"/>
+      {/* Image area */}
+      <div className="relative h-44 overflow-hidden bg-base-200">
+        {!imgError ? (
+          <Image
+            src={item.image}
+            alt={item.name}
+            fill
+            className="object-cover group-hover:scale-110 transition-transform duration-500"
+            onError={() => setImgError(true)}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          />
+        ) : (
+          // Fallback if image fails
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-base-200 to-base-300">
+            <span className="text-5xl opacity-60">🦞</span>
+          </div>
+        )}
+
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+
+        {/* Wave divider */}
+        <svg className="absolute bottom-0 left-0 w-full text-base-100" viewBox="0 0 400 20" fill="currentColor">
+          <path d="M0,12 Q100,0 200,10 Q300,20 400,6 L400,20 L0,20 Z"/>
         </svg>
+
         {item.badge && (
           <span className={`absolute top-3 right-3 text-xs font-bold px-2.5 py-1 rounded-full
             shadow-lg ${BADGE_STYLE[item.badge] || "bg-primary text-primary-content"}`}>
@@ -86,7 +102,7 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
   );
 }
 
-export default function MenuSection() {
+export default function MenuSection({ standalone = false }: { standalone?: boolean }) {
   const [cat, setCat] = useState("Semua");
   const [q, setQ] = useState("");
 
@@ -98,7 +114,7 @@ export default function MenuSection() {
   });
 
   return (
-    <section id="menu" className="py-24 bg-base-200 relative overflow-hidden">
+    <section id="menu" className={`${standalone ? "pt-32" : "py-24"} pb-24 bg-base-200 relative overflow-hidden`}>
 
       {/* Background decoration */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />

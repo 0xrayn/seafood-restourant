@@ -1,24 +1,21 @@
 "use client";
 
 import { useState, useEffect, useRef, memo } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { useTheme, seafoodThemes } from "./ThemeContext";
 
 const WA_NUMBER = "6281234567890";
 const WA_MSG = encodeURIComponent("Halo Pesisir Seafood! Saya ingin memesan/reservasi meja 🦞");
 
-const LINKS = [
-  { href: "#hero",    label: "Beranda" },
-  { href: "#menu",    label: "Menu" },
-  { href: "#about",   label: "Tentang" },
-  { href: "#contact", label: "Kontak" },
-];
+type NavLink = { label: string; href: string; anchor: string };
 
-// Facebook SVG icon
-const FacebookIcon = () => (
-  <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
-    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-  </svg>
-);
+const LINKS: NavLink[] = [
+  { label: "Beranda", href: "/",        anchor: "#hero"    },
+  { label: "Menu",    href: "/menu",    anchor: "#menu"    },
+  { label: "Tentang", href: "/tentang", anchor: "#about"   },
+  { label: "Kontak",  href: "/kontak",  anchor: "#contact" },
+];
 
 const WA_ICON_SVG = (
   <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current flex-shrink-0">
@@ -28,6 +25,9 @@ const WA_ICON_SVG = (
 
 export default memo(function Navbar() {
   const { current, set } = useTheme();
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [themeOpen, setThemeOpen] = useState(false);
@@ -45,9 +45,11 @@ export default memo(function Navbar() {
         ticking = true;
       }
     };
+    // On sub-pages, always show solid navbar
+    if (!isHome) setScrolled(true);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isHome]);
 
   useEffect(() => {
     if (scrolled && menuOpen) setMenuOpen(false);
@@ -63,51 +65,67 @@ export default memo(function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Build nav href: if on homepage use anchor, else use real route
+  const getLinkHref = (link: NavLink) => {
+    if (isHome) return link.anchor;
+    return link.href;
+  };
+
+  // Determine if a link is "active"
+  const isActive = (link: NavLink) => {
+    if (isHome) return false; // on home, no active highlight
+    return pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
+  };
 
   return (
     <>
-      {/* Top info bar */}
-      <div
-        className="fixed top-0 left-0 right-0 z-50 overflow-hidden transition-all duration-400"
-        style={{ height: scrolled ? "0px" : "28px", opacity: scrolled ? 0 : 1 }}
-      >
-        <div className="bg-primary text-primary-content text-xs h-7 flex items-center justify-center gap-2 font-medium tracking-wide px-4">
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-300 animate-pulse shrink-0" />
-          <span className="truncate">Buka Sekarang · 10.00 – 22.00 WIB · Jl. Mayangan No.45, Probolinggo</span>
+      {/* Top info bar — only on homepage */}
+      {isHome && (
+        <div
+          className="fixed top-0 left-0 right-0 z-50 overflow-hidden transition-all duration-400"
+          style={{ height: scrolled ? "0px" : "28px", opacity: scrolled ? 0 : 1 }}
+        >
+          <div className="bg-primary text-primary-content text-xs h-7 flex items-center justify-center gap-2 font-medium tracking-wide px-4">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-300 animate-pulse shrink-0" />
+            <span className="truncate">Buka Sekarang · 10.00 – 22.00 WIB · Jl. Mayangan No.45, Probolinggo</span>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Main navbar */}
       <nav
         className={`fixed left-0 right-0 z-50 transition-all duration-400 nav-glass
           ${scrolled
             ? "top-0 bg-base-100/90 shadow-lg shadow-black/10"
-            : "top-7 bg-transparent"
+            : isHome ? "top-7 bg-transparent" : "top-0 bg-base-100/90"
           }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
 
           {/* Logo */}
-          <a href="#hero" className="flex items-center gap-2.5 group shrink-0">
+          <Link href="/" className="flex items-center gap-2.5 group shrink-0">
             <span className="text-2xl group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300 inline-block">🦞</span>
             <span className="font-black text-lg tracking-tight leading-none">
               <span className="text-primary">Pesisir</span>
-              <span className={scrolled ? "text-base-content" : "text-white"}> Seafood</span>
+              <span className={(scrolled || !isHome) ? "text-base-content" : "text-white"}> Seafood</span>
             </span>
-          </a>
+          </Link>
 
           {/* Desktop links */}
           <ul className="hidden md:flex items-center gap-0.5">
-            {LINKS.map(l => (
-              <li key={l.href}>
-                <a href={l.href}
-                  className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200
-                    hover:bg-primary/10 hover:text-primary
-                    ${scrolled ? "text-base-content/75" : "text-white/85"}`}>
-                  {l.label}
-                </a>
-              </li>
-            ))}
+            {LINKS.map(l => {
+              const href = getLinkHref(l);
+              const active = isActive(l);
+              const cls = `px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200
+                hover:bg-primary/10 hover:text-primary
+                ${active ? "bg-primary/10 text-primary" : (scrolled || !isHome) ? "text-base-content/75" : "text-white/85"}`;
+              // Use <a> for anchor links, Link for route links
+              return isHome ? (
+                <li key={l.href}><a href={href} className={cls}>{l.label}</a></li>
+              ) : (
+                <li key={l.href}><Link href={href} className={cls}>{l.label}</Link></li>
+              );
+            })}
           </ul>
 
           {/* Right side */}
@@ -118,7 +136,7 @@ export default memo(function Navbar() {
               <button
                 onClick={() => setThemeOpen(v => !v)}
                 className={`btn btn-ghost btn-sm gap-1.5 rounded-xl border transition-colors px-2.5
-                  ${scrolled ? "border-base-300 hover:border-primary text-base-content" : "border-white/30 hover:border-white/60 text-white"}`}>
+                  ${(scrolled || !isHome) ? "border-base-300 hover:border-primary text-base-content" : "border-white/30 hover:border-white/60 text-white"}`}>
                 <span className="text-base leading-none">{active.emoji}</span>
                 <span className="hidden lg:inline text-xs font-semibold">{active.label}</span>
                 <svg className={`w-3 h-3 opacity-50 transition-transform duration-200 ${themeOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -166,7 +184,7 @@ export default memo(function Navbar() {
               onClick={() => setMenuOpen(v => !v)}
               aria-label="Toggle menu">
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24"
-                stroke={scrolled ? "currentColor" : "white"}>
+                stroke={(scrolled || !isHome) ? "currentColor" : "white"}>
                 {menuOpen
                   ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
                   : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16"/>}
@@ -179,14 +197,15 @@ export default memo(function Navbar() {
         <div className={`md:hidden overflow-hidden transition-all duration-300 nav-glass
           ${menuOpen ? "max-h-96 border-t border-base-200" : "max-h-0"}`}>
           <div className="px-4 py-4 flex flex-col gap-1 bg-base-100/95">
-            {LINKS.map(l => (
-              <a key={l.href} href={l.href}
-                onClick={() => setMenuOpen(false)}
-                className="py-3 px-4 rounded-xl font-semibold text-base-content/80
-                  hover:text-primary hover:bg-primary/10 transition-all text-sm">
-                {l.label}
-              </a>
-            ))}
+            {LINKS.map(l => {
+              const href = getLinkHref(l);
+              const cls = "py-3 px-4 rounded-xl font-semibold text-base-content/80 hover:text-primary hover:bg-primary/10 transition-all text-sm block";
+              return isHome ? (
+                <a key={l.href} href={href} onClick={() => setMenuOpen(false)} className={cls}>{l.label}</a>
+              ) : (
+                <Link key={l.href} href={href} onClick={() => setMenuOpen(false)} className={cls}>{l.label}</Link>
+              );
+            })}
             <a href={`https://wa.me/${WA_NUMBER}?text=${WA_MSG}`}
               target="_blank" rel="noopener noreferrer"
               onClick={() => setMenuOpen(false)}
@@ -221,9 +240,6 @@ export default memo(function Navbar() {
           Chat WA
         </span>
       </a>
-
-      {/* Expose FacebookIcon so it doesn't get tree-shaken */}
-      <span style={{display:"none"}} aria-hidden><FacebookIcon /></span>
     </>
   );
 });
