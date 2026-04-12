@@ -14,7 +14,7 @@ export default function About() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
 
         {/* Main grid */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-28">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-12">
           <div className="anim-slide-r">
             <span className="inline-block text-primary font-bold tracking-[0.25em] uppercase text-xs sm:text-sm
               mb-5 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20">

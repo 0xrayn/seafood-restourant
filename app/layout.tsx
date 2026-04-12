@@ -3,7 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "../components/ThemeContext";
 
 export const metadata: Metadata = {
-  title: "Pesisir Seafood — Restoran Seafood Terbaik Probolinggo",
+  title: "Pesisir Seafood",
   description: "Restoran seafood segar dengan cita rasa Nusantara terbaik di Probolinggo.",
 };
 
