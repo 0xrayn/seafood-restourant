@@ -1,4 +1,4 @@
-# 🦞 Pesisir Seafood — Seafood Restaurant Website
+# 🦞 Pesisir Seafood ~ Seafood Restaurant Website
 
 A modern seafood restaurant website built with **Next.js 16**, **Tailwind CSS v4**, and **DaisyUI v5**. Comes with a full admin panel to manage the menu (CRUD) including photo upload support.
 
@@ -32,13 +32,13 @@ A modern seafood restaurant website built with **Next.js 16**, **Tailwind CSS v4
 
 ## Features
 
-- **6 Theme Options** — Samudra 🌊, Sunset 🌅, Karang 🪸, Mangrove 🌿, Mewah ✨, Segar 🌸
-- **Interactive Menu** — Category filter + real-time search
-- **Admin Panel** — Full menu CRUD with image upload
-- **Photo Upload** — Supports JPG, PNG, WEBP up to 5MB
-- **Responsive Design** — Mobile-first, looks great on all devices
-- **Smooth Scrolling** — Seamless navigation between sections
-- **Animations** — Hero floating emojis, hover cards, theme transitions
+- **6 Theme Options**  Samudra 🌊, Sunset 🌅, Karang 🪸, Mangrove 🌿, Mewah ✨, Segar 🌸
+- **Interactive Menu**  Category filter + real-time search
+- **Admin Panel**  Full menu CRUD with image upload
+- **Photo Upload**  Supports JPG, PNG, WEBP up to 5MB
+- **Responsive Design**  Mobile-first, looks great on all devices
+- **Smooth Scrolling**  Seamless navigation between sections
+- **Animations**  Hero floating emojis, hover cards, theme transitions
 
 ---
 
@@ -198,4 +198,4 @@ vercel
 
 ---
 
-Built by **[Rayn](https://rayn.web.id)** — rayn.web.id
+Built by **[Rayn](https://rayn.web.id)**  rayn.web.id
